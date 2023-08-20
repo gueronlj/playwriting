@@ -1,34 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { useState } from 'react';
 import './App.css'
 
+const ZipcodeInput = () => {
+  const [zipcode, setZipcode] = useState(null);
+  const [userInput, setUserInput] = useState(null);
+
+  const handleInput = (e) => {
+    setUserInput(e.target.value)
+   }
+ 
+   const handleSubmit = () => {
+     setZipcode(userInput)
+   }
+ 
+   const handleChangeZipcode = () => {
+     setZipcode(null)
+   }
+   
+  return (<>
+    { zipcode ? <>
+      <h2>Current zip-code: {zipcode}</h2> 
+      <button onClick={handleChangeZipcode}>Change</button>
+    </>
+    :
+      <div className="zipcode-input">
+        <h2>Enter your zipcode:</h2>
+        <form onSubmit={handleSubmit}>
+          <input type='text' onChange={handleInput}/>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    }       
+  </>)
+}
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Grocery Pro</h1>
+      <ZipcodeInput/>
+    </div>
   )
 }
 
